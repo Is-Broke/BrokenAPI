@@ -9,7 +9,8 @@ namespace BrokenApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class APIBrokenController : ControllerBase
+    public class ErrorCategoryController : ControllerBase
     {
+
     }
 }
