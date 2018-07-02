@@ -19,12 +19,6 @@ namespace BrokenApi.Controllers
         public ErrorController(BrokenAPIContext context)
         {
             _context = context;
-
-            if (_context.Errors == null)
-            {
-                _context.Errors.Add(new Error { DetailedName = "Test Error" });
-                _context.SaveChanges();
-            }
         }
 
         // GET api/Error
