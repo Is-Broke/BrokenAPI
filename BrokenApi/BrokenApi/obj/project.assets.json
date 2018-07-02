@@ -12230,11 +12230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
+      "projectUniqueName": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
       "projectName": "BrokenApi",
-      "projectPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
+      "projectPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
       "packagesPath": "C:\\Users\\ritzm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\obj\\",
+      "outputPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
