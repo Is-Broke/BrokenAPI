@@ -22,6 +22,7 @@ namespace BrokenApi.Controllers
         }
 
         // GET api/Error
+        // Returns most upvoted Error
         [HttpGet]
         public async Task<ActionResult<Error>> GetTop()
         {
