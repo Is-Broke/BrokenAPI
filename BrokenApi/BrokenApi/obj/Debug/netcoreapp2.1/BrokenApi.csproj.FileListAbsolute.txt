@@ -1,0 +1,14 @@
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\bin\Debug\netcoreapp2.1\BrokenApi.deps.json
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\bin\Debug\netcoreapp2.1\BrokenApi.runtimeconfig.json
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\bin\Debug\netcoreapp2.1\BrokenApi.runtimeconfig.dev.json
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\bin\Debug\netcoreapp2.1\BrokenApi.dll
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.RazorAssemblyInfo.cache
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.RazorAssemblyInfo.cs
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.RazorTargetAssemblyInfo.cache
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\bin\Debug\netcoreapp2.1\BrokenApi.pdb
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.dll
+C:\Users\Admin\Desktop\Codefellows\401\Broken Api\BrokenApi\BrokenApi\obj\Debug\netcoreapp2.1\BrokenApi.pdb
