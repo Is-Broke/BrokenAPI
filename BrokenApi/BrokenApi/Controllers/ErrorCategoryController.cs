@@ -19,11 +19,15 @@ namespace BrokenApi.Controllers
         {
             _context = context;
 
-            if (_context.Categories.Count() == 0)
-            {
-                _context.Categories.Add(new ErrorCategory { Name = "Test Error Category" });
-                _context.SaveChanges();
-            }
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<Error>> GetAllCategories()
+        //{
+        //    if (_context.Categories == null)
+        //    {
+
+        //    }
+        //}
     }
 }
