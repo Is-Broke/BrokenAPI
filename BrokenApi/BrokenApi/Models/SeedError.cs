@@ -38,7 +38,8 @@ namespace BrokenApi.Models
                         "\treturn formerTop;\n" +
                         "}",
                         IsUserExample = false,
-                        Votes = 0
+                        Votes = 0,
+                        Rating = 0,
                     },
 
 
@@ -47,7 +48,8 @@ namespace BrokenApi.Models
                         ErrorCategoryID = 1,
                         CodeExample = "int quotient = 5 / 0;",
                         DetailedName = "Divide By Zero",
-                        Votes = 1
+                        Votes = 1,
+                        Rating = 0,
                     },
 
                     new Error
@@ -58,7 +60,8 @@ namespace BrokenApi.Models
                                       "\tdo something\n" +
                                       "}",
                         DetailedName = "Invalid Conversion",
-                        Votes = 0
+                        Votes = 0,
+                        Rating = 0,
                     });
 
                 await context.SaveChangesAsync();
