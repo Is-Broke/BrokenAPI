@@ -27,6 +27,7 @@ namespace BrokenApi
                     var context = services.GetRequiredService<BrokenAPIContext>();
                     context.Database.Migrate();
                     SeedCategory.Initialize(services);
+                    SeedError.Initialize(services);
                 }
                 catch
                 {

@@ -10,7 +10,6 @@ namespace BrokenApi.Models
 {
     public class SeedCategory
     {
-
         public static async void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new BrokenAPIContext(
@@ -24,22 +23,20 @@ namespace BrokenApi.Models
                 await context.Categories.AddRangeAsync(
                     new ErrorCategory
                     {
-
                         ErrorType = (ErrorType)0,
                         Description = "Logic Error",
                     },
                     new ErrorCategory
                     {
-
                         ErrorType = (ErrorType)1,
-                        Description = "Run-Time Error",
+                        Description = "Runtime Error",
                     },
                     new ErrorCategory
                     {
-
                         ErrorType = (ErrorType)2,
                         Description = "Syntax Error",
                     });
+
                 await context.SaveChangesAsync();
             }
         }
