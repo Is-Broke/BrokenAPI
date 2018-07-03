@@ -6,6 +6,7 @@ using BrokenApi.Data;
 using BrokenApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BrokenApi.Controllers
 {
@@ -20,14 +21,28 @@ namespace BrokenApi.Controllers
             _context = context;
 
         }
+        [HttpGet]
+        public async Task<List<ErrorCategory>> GetAllCategories()
+        {
 
-        //[HttpGet]
-        //public async Task<ActionResult<Error>> GetAllCategories()
-        //{
-        //    if (_context.Categories == null)
-        //    {
+            var getCategories = await (from all in _context.Categories
+                                       select all).ToListAsync();
 
-        //    }
-        //}
+            return getCategories;
+
+        }
+
+
+        [HttpGet("{ErrorType}")]//api/errorCategory/ErrorType
+        public async Task<ActionResult<ErrorCategory>> GetOneCategory(string errortype)
+        {
+
+            var getOneFromCategory = await (from oneCategory in _context.Categories
+                                            where oneCategory.ErrorType.ToString() == errortype
+                                            select oneCategory).FirstOrDefaultAsync();
+
+            return getOneFromCategory;
+        }
     }
+}
 }
