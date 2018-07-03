@@ -24,6 +24,7 @@ namespace BrokenApi.Controllers
         // GET api/Error/Top
         // Returns most upvoted Error
         [HttpGet]
+        [Route("/api/error")]
         public async Task<ActionResult<Error>> GetTop()
         {
             if (_context.Errors == null)
@@ -36,10 +37,11 @@ namespace BrokenApi.Controllers
 
             return await topError;
         }
-
+        
         // GET api/Error/All
         // Returns all Errors
         [HttpGet]
+        [Route("/api/error/all")]
         public ActionResult<List<Error>> GetAll()
         {
             try
