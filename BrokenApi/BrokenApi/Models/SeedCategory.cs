@@ -23,17 +23,17 @@ namespace BrokenApi.Models
                 await context.Categories.AddRangeAsync(
                     new ErrorCategory
                     {
-                        ErrorType = (ErrorType)0,
+                        ErrorType = "Logic",
                         Description = "Logic Error",
                     },
                     new ErrorCategory
                     {
-                        ErrorType = (ErrorType)1,
+                        ErrorType = "Runtime",
                         Description = "Runtime Error",
                     },
                     new ErrorCategory
                     {
-                        ErrorType = (ErrorType)2,
+                        ErrorType = "Syntax",
                         Description = "Syntax Error",
                     });
 
