@@ -56,6 +56,7 @@ namespace BrokenApi.Controllers
         
         // GET api/Error/Search
         // GET api/Error/Search/{error name}
+        // Returns searched for Error
         [HttpGet]
         [Route("/api/error/search/{searchName?}")]
         public async Task<ActionResult<Error>> GetError(string searchName)
@@ -81,6 +82,37 @@ namespace BrokenApi.Controllers
                 return BadRequest();
             }
         }
+
+        // POST api/Error/Create
+        [HttpPost]
+        [Route("/api/error/create")]
+        public async Task<IActionResult> PostError(Error newError)
+        {
+            if (newError.DetailedName == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.DetailedName == newError.DetailedName);
+
+            if (foundError != null || newError.DetailedName == null)
+            {
+                return Conflict();
+            }
+            
+            try
+            {
+                await _context.Errors.AddAsync(newError);
+                await _context.SaveChangesAsync();
+                
+                return Created($"/api/error/search/{newError.DetailedName}", newError);
+            }
+            catch
+            {
+                return Conflict();
+            }
+        }
+
 
 
 
