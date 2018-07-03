@@ -33,7 +33,7 @@ namespace BrokenApi.Controllers
             }
 
             var topError = _context.Errors.OrderByDescending(err => err.Votes)
-                                   .FirstOrDefaultAsync();
+                                          .FirstOrDefaultAsync();
 
             return await topError;
         }
@@ -53,5 +53,36 @@ namespace BrokenApi.Controllers
                 return NotFound();
             }
         }
+        
+        // GET api/Error/Search
+        // GET api/Error/Search/{error name}
+        [HttpGet]
+        [Route("/api/error/search/{searchName?}")]
+        public async Task<ActionResult<Error>> GetError(string searchName)
+        {
+            if (String.IsNullOrEmpty(searchName))
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.DetailedName == searchName);
+
+                if (foundError != null)
+                {
+                    return foundError;
+                }
+
+                return NotFound();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+
+
     }
 }
