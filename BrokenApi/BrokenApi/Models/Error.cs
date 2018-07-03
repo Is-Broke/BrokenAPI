@@ -9,8 +9,10 @@ namespace BrokenApi.Models
     {
         public int ID { get; set; }
         public int ErrorCategoryID { get; set; }
-        public string CodeExample { get; set; }
         public string DetailedName { get; set; }
+        public string Link { get; set; }
+        public string CodeExample { get; set; }
+        public bool IsUserExample { get; set; }
         public int Votes { get; set; }
         public int Rating { get; set; }
     }

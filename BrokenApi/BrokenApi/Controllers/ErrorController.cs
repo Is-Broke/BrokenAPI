@@ -21,9 +21,9 @@ namespace BrokenApi.Controllers
             _context = context;
         }
 
-        // GET api/Error
+        // GET api/Error/Top
         // Returns most upvoted Error
-        [HttpGet]
+        [HttpGet(Name = "Top")]
         public async Task<ActionResult<Error>> GetTop()
         {
             if (_context.Errors == null)
@@ -37,7 +37,19 @@ namespace BrokenApi.Controllers
             return await topError;
         }
 
-
-
+        // GET api/Error/All
+        // Returns all Errors
+        [HttpGet(Name = "All")]
+        public ActionResult<List<Error>> GetAll()
+        {
+            try
+            {
+                return _context.Errors.ToList();
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
     }
 }
