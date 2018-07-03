@@ -12224,23 +12224,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\ritzm\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Codefellows\\401\\Broken Api\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
+      "projectUniqueName": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
       "projectName": "BrokenApi",
-      "projectPath": "C:\\Users\\Admin\\Desktop\\Codefellows\\401\\Broken Api\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\Desktop\\Codefellows\\401\\Broken Api\\BrokenApi\\BrokenApi\\obj\\",
+      "projectPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\BrokenApi.csproj",
+      "packagesPath": "C:\\Users\\ritzm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ritzm\\Documents\\codefellows\\401\\projects\\BrokenApi\\BrokenApi\\BrokenApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ritzm\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
