@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BrokenApi.Migrations
 {
-    public partial class intial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,8 +30,10 @@ namespace BrokenApi.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ErrorCategoryID = table.Column<int>(nullable: false),
-                    CodeExample = table.Column<string>(nullable: true),
                     DetailedName = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    CodeExample = table.Column<string>(nullable: true),
+                    IsUserExample = table.Column<bool>(nullable: false),
                     Votes = table.Column<int>(nullable: false),
                     Rating = table.Column<int>(nullable: false)
                 },
