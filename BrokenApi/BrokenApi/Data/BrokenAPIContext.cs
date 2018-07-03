@@ -11,6 +11,7 @@ namespace BrokenApi.Data
     {
         public BrokenAPIContext(DbContextOptions<BrokenAPIContext> options) : base(options) { }
         
+        public DbSet<ErrorCategory> Categories { get; set; }
         public DbSet<Error> Errors { get; set; }
     }
 }
