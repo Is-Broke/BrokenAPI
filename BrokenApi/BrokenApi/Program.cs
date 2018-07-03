@@ -35,7 +35,6 @@ namespace BrokenApi
                 }
             }
 
-
            host.Run();
         }
 
