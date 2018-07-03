@@ -23,13 +23,22 @@ namespace BrokenApi.Models
                 await context.Errors.AddRangeAsync(
                     new Error
                     {
-                        ErrorCategoryID = 0,
-                        CodeExample = "While (true)\n" +
-                                      "{\n" +
-                                      "\tdo something\n" +
-                                      "}",
-                        DetailedName = "Infinite Loop",
-                        Votes = 2
+                        ErrorCategoryID = 1,
+                        DetailedName = "NullReference Exception",
+                        Link = "https://docs.microsoft.com/en-us/dotnet/api/system.nullreferenceexception?view=netframework-4.7.2",
+                        CodeExample =
+                        "public static void Main(String[] args)\n" +
+                        "{\n" +
+                        "\tStack myStack = new Stack();\n" +
+                        "\tFindTopOfStack(myStack);\n" +
+                        "}\n" +
+                        "public static Node FindTopOfStack(Stack inputStack)\n" +
+                        "{\n" +
+                        "\tNode formerTop = inputStack.Pop();\n" +
+                        "\treturn formerTop;\n" +
+                        "}",
+                        IsUserExample = false,
+                        Votes = 0
                     },
 
 
