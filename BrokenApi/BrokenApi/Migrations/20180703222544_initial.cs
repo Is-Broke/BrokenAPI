@@ -29,6 +29,7 @@ namespace BrokenApi.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ErrorCategoryID = table.Column<int>(nullable: false),
                     DetailedName = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true),
                     CodeExample = table.Column<string>(nullable: true),
                     IsUserExample = table.Column<bool>(nullable: false),

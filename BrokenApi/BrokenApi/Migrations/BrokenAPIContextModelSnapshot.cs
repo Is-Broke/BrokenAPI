@@ -26,6 +26,8 @@ namespace BrokenApi.Migrations
 
                     b.Property<string>("CodeExample");
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("DetailedName");
 
                     b.Property<int>("ErrorCategoryID");

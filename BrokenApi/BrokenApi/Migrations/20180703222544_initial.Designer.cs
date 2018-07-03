@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrokenApi.Migrations
 {
     [DbContext(typeof(BrokenAPIContext))]
-    [Migration("20180703214611_initial")]
+    [Migration("20180703222544_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,8 @@ namespace BrokenApi.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("CodeExample");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("DetailedName");
 
