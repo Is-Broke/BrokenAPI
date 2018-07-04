@@ -95,7 +95,7 @@ namespace BrokenApi.Controllers
 
             var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.DetailedName == newError.DetailedName);
 
-            if (foundError != null || newError.DetailedName == null)
+            if (foundError != null)
             {
                 return Conflict();
             }
@@ -109,10 +109,11 @@ namespace BrokenApi.Controllers
             }
             catch
             {
-                return Conflict();
+                return BadRequest();
             }
         }
 
+        // PUT api/Error/{error id}
         [HttpPut]
         [Route("/api/error/{id}")]
         public async Task<IActionResult> AddVote(int id)
@@ -133,10 +134,33 @@ namespace BrokenApi.Controllers
             }
             catch
             {
-                return Conflict();
+                return BadRequest();
             }
         }
 
+        // DELETE api/Error/{id}
+        [HttpDelete]
+        [Route("/api/error/{id}")]
+        public async Task<IActionResult> DeleteError(int id)
+        {
+            var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.ID == id);
 
+            if (foundError == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.Errors.Remove(foundError);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
