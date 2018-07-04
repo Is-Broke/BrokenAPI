@@ -23,6 +23,58 @@ namespace BrokenApi.Models
                 await context.Errors.AddRangeAsync(
                     new Error
                     {
+                        ErrorCategoryID = 0,
+                        DetailedName = "Unexpected Output string",
+                        Link = "",
+                        CodeExample = $"public static void Main(string[] args)" +
+        $"{{" +
+            $"Console.WriteLine(\"Hello World\");" +
+            $"string firstName = \"John\";" +
+            $"string lastName = \"Doe\";" +
+            $"MakeFullName(firstName, lastName);" +
+        $"}}" +
+        $"public static void MakeFullName(string one, string two)" +
+        $"{{" +
+            $"Console.WriteLine(one + two);  // output is JohnDoe" +
+
+            $"Console.WriteLine(one + \" \" + two); //Correct output of John Doe" +
+            $"Console.WriteLine($\"{{one}} {{two}}\"); // same as above" +
+        $"}}",
+                        IsUserExample = false,
+                        Votes = 0,
+                        Rating = 0,
+                        Description = "Error still computes but makes undesired output"
+
+                    },
+                     new Error
+                     {
+                         ErrorCategoryID = 0,
+                         DetailedName = "Unexpected Output Int",
+                         Link = "",
+                         CodeExample = $"public static void Main(string[] args)" +
+        $"{{" +
+            $"Console.WriteLine(\"Hello World\");" +
+           $"Console.WriteLine(FindAverage(20, 12));" +
+            $"Console.WriteLine(FindAverageTrue(20, 12));" +
+        $"}}" +
+        $"public static int FindAverage(int x, int y)" +
+       $"{{" +
+            $"return x + y / 2;   // return 26 wrong output for average wanted 16" +
+        $"}}" +
+
+        $"public static int FindAverageTrue(int x, int y)" +
+        $"{{" +
+            $"return (x + y) / 2;  // returned the correct output for average" +
+        $"}}" +
+    $"}}",
+                         IsUserExample = false,
+                         Votes = 0,
+                         Rating = 0,
+                         Description = $"Error will compute but is not the desired output"
+
+                     },
+                    new Error
+                    {
                         ErrorCategoryID = 1,
                         DetailedName = "NullReference Exception",
                         Link = "https://docs.microsoft.com/en-us/dotnet/api/system.nullreferenceexception?view=netframework-4.7.2",
@@ -36,7 +88,7 @@ namespace BrokenApi.Models
                         "{\n" +
                         "\tNode formerTop = inputStack.Pop();\n" +
                         "\treturn formerTop;\n" +
-                        "}",
+                        "}",    
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
