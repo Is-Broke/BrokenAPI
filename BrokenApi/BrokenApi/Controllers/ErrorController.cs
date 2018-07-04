@@ -42,11 +42,11 @@ namespace BrokenApi.Controllers
         // Returns all Errors
         [HttpGet]
         [Route("/api/error/all")]
-        public ActionResult<List<Error>> GetAll()
+        public async Task<ActionResult<List<Error>>> GetAll()
         {
             try
             {
-                return _context.Errors.ToList();
+                return await _context.Errors.ToListAsync();
             }
             catch
             {
