@@ -113,7 +113,29 @@ namespace BrokenApi.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("/api/error/{id}")]
+        public async Task<IActionResult> AddVote(int id)
+        {
+            var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.ID == id);
 
+            if (foundError == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                foundError.Votes++;
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch
+            {
+                return Conflict();
+            }
+        }
 
 
     }
