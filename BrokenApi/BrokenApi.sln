@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrokenApi", "BrokenApi\BrokenApi.csproj", "{0AE442C5-2822-4A36-958D-364D65D2B29A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorController-Unit-Tests", "ErrorController-Unit-Tests\ErrorController-Unit-Tests.csproj", "{B1963C60-3250-4800-925D-2B9B092804B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErrorController-Unit-Tests", "ErrorController-Unit-Tests\ErrorController-Unit-Tests.csproj", "{B1963C60-3250-4800-925D-2B9B092804B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorCategoryControllerTests", "ErrorCategoryControllerTests\ErrorCategoryControllerTests.csproj", "{AE007CF9-6D20-440C-8BB3-0B96BD7CB26C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B1963C60-3250-4800-925D-2B9B092804B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1963C60-3250-4800-925D-2B9B092804B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1963C60-3250-4800-925D-2B9B092804B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE007CF9-6D20-440C-8BB3-0B96BD7CB26C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE007CF9-6D20-440C-8BB3-0B96BD7CB26C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE007CF9-6D20-440C-8BB3-0B96BD7CB26C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE007CF9-6D20-440C-8BB3-0B96BD7CB26C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

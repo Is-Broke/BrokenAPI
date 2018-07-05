@@ -30,11 +30,18 @@ namespace BrokenApi.Controllers
         [HttpGet]
         public async Task<List<ErrorCategory>> GetAllCategories()
         {
+            try
+            {
+                var getCategories = await (from all in _context.Categories
+                                           select all).ToListAsync();
 
-            var getCategories = await (from all in _context.Categories
-                                       select all).ToListAsync();
-
-            return getCategories;
+                return getCategories;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
 
         }
 
@@ -46,12 +53,20 @@ namespace BrokenApi.Controllers
         [HttpGet("{errorType}")]//api/errorCategory/(errorType)
         public async Task<ActionResult<ErrorCategory>> GetOneCategory(string errortype)
         {
+            try
+            {
+                var getOneFromCategory = await (from oneCategory in _context.Categories
+                                                where oneCategory.ErrorType.ToString() == errortype
+                                                select oneCategory).FirstOrDefaultAsync();
 
-            var getOneFromCategory = await (from oneCategory in _context.Categories
-                                            where oneCategory.ErrorType.ToString() == errortype
-                                            select oneCategory).FirstOrDefaultAsync();
+                return getOneFromCategory;
+            }
+            catch (Exception)
+            {
 
-            return getOneFromCategory;
+                throw;
+            }
+           
         }
 
         /// <summary>
@@ -67,38 +82,44 @@ namespace BrokenApi.Controllers
             string listofTypeName = errortype.ToLower();
 
             ArrayList list = new ArrayList();
-            
-            var getOneFromCategory = await (from oneCategory in _context.Categories
-                                            where oneCategory.ErrorType.ToString() == errortype
-                                            select oneCategory).FirstOrDefaultAsync();
-            switch (listofTypeName)
+            try
             {
-                case "logic":
-                    var getLogicExamples = await (from allErrorExamp in _context.Errors
-                                                  where allErrorExamp.ErrorCategoryID == 0
-                                                  select allErrorExamp).ToListAsync();
-                    list.Add(getOneFromCategory);
-                    list.Add(getLogicExamples);
-                    return list;
-                case "runtime":
-                    var getRuntimeExamples = await (from allErrorExamp in _context.Errors
-                                                  where allErrorExamp.ErrorCategoryID == 1
-                                                  select allErrorExamp).ToListAsync();
-                    list.Add(getOneFromCategory);
-                    list.Add(getRuntimeExamples);
-                    return list;
-                case "syntax":
-                    var getSyntaxExamples = await (from allErrorExamp in _context.Errors
-                                                    where allErrorExamp.ErrorCategoryID == 2
-                                                    select allErrorExamp).ToListAsync();
-                    list.Add(getOneFromCategory);
-                    list.Add(getSyntaxExamples);
-                    return list;
-                default:
-                    list.Add(getOneFromCategory);
-                    return list;
+                var getOneFromCategory = await (from oneCategory in _context.Categories
+                                                where oneCategory.ErrorType.ToString() == errortype
+                                                select oneCategory).FirstOrDefaultAsync();
+                switch (listofTypeName)
+                {
+                    case "logic":
+                        var getLogicExamples = await (from allErrorExamp in _context.Errors
+                                                      where allErrorExamp.ErrorCategoryID == 0
+                                                      select allErrorExamp).ToListAsync();
+                        list.Add(getOneFromCategory);
+                        list.Add(getLogicExamples);
+                        return list;
+                    case "runtime":
+                        var getRuntimeExamples = await (from allErrorExamp in _context.Errors
+                                                        where allErrorExamp.ErrorCategoryID == 1
+                                                        select allErrorExamp).ToListAsync();
+                        list.Add(getOneFromCategory);
+                        list.Add(getRuntimeExamples);
+                        return list;
+                    case "syntax":
+                        var getSyntaxExamples = await (from allErrorExamp in _context.Errors
+                                                       where allErrorExamp.ErrorCategoryID == 2
+                                                       select allErrorExamp).ToListAsync();
+                        list.Add(getOneFromCategory);
+                        list.Add(getSyntaxExamples);
+                        return list;
+                    default:
+                        list.Add(getOneFromCategory);
+                        return list;
+                }
             }
- 
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -109,28 +130,37 @@ namespace BrokenApi.Controllers
         public async Task<ArrayList> GetAllTypesAndError()
         {
             ArrayList list = new ArrayList();
+            try
+            {
+                var getCategories = await (from all in _context.Categories
+                                           select all).ToListAsync();
 
-            var getCategories = await (from all in _context.Categories
-                                       select all).ToListAsync();
+                var getLogicExamples = await (from allLogicExamp in _context.Errors
+                                              where allLogicExamp.ErrorCategoryID == 0
+                                              select allLogicExamp).ToListAsync();
+                list.Add(getCategories[0]);
+                list.Add(getLogicExamples);
 
-            var getLogicExamples = await (from allErrorExamp in _context.Errors
-                                          where allErrorExamp.ErrorCategoryID == 0
-                                          select allErrorExamp).ToListAsync();
-            list.Add(getCategories[0]);
-            list.Add(getLogicExamples);
+                var getRuntimeExamples = await (from allRuntimeExamp in _context.Errors
+                                                where allRuntimeExamp.ErrorCategoryID == 1
+                                                select allRuntimeExamp).ToListAsync();
+                list.Add(getCategories[1]);
+                list.Add(getRuntimeExamples);
 
-            var getRuntimeExamples = await (from allErrorExamp in _context.Errors
-                                            where allErrorExamp.ErrorCategoryID == 1
-                                            select allErrorExamp).ToListAsync();
-            list.Add(getCategories[1]);
-            list.Add(getRuntimeExamples);
+                var getSyntaxExamples = await (from allSyntaxExamp in _context.Errors
+                                               where allSyntaxExamp.ErrorCategoryID == 2
+                                               select allSyntaxExamp).ToListAsync();
+                list.Add(getCategories[2]);
+                list.Add(getSyntaxExamples);
+                return list;
+            }
+            catch (Exception)
+            {
 
-            var getSyntaxExamples = await (from allErrorExamp in _context.Errors
-                                           where allErrorExamp.ErrorCategoryID == 2
-                                           select allErrorExamp).ToListAsync();
-            list.Add(getCategories[2]);
-            list.Add(getSyntaxExamples);
-            return list;
+                throw;
+            }
+           
         }
+
     }
 }
