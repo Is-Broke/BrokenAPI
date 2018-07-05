@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BrokenApi.Migrations
 {
-    public partial class initial : Migration
+    public partial class descriptionsandlinks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
