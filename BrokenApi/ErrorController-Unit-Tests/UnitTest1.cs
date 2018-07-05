@@ -133,6 +133,47 @@ namespace ErrorController_Unit_Tests
             }
         }
 
+        [Theory]
+        [InlineData("firstTestError")]
+        [InlineData("secondTestError")]
+        [InlineData("thirdTestError")]
+        public async void GetErrorCanReturnTheErrorFromSearch(string errName)
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase(errName)
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error testError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = errName,
+                    Description = "This is a test of the Post method.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await context.Errors.AddAsync(testError);
+                await context.SaveChangesAsync();
+
+                // Act
+                var foundError = ec.GetError(errName);
+
+                // Assert
+                Assert.Equal(errName, foundError.Result.Value.DetailedName);
+            }
+        }
+
+
+
 
 
     }
