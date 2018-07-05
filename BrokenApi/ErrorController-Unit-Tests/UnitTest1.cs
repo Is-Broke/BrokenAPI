@@ -63,7 +63,7 @@ namespace ErrorController_Unit_Tests
                 {
                     ErrorCategoryID = 0,
                     DetailedName = "postTest",
-                    Description = "This is a test of the Post method.",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -97,8 +97,8 @@ namespace ErrorController_Unit_Tests
                 Error errorOne = new Error
                 {
                     ErrorCategoryID = 0,
-                    DetailedName = "postTest",
-                    Description = "This is a test of the Post method.",
+                    DetailedName = "errorOne",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -109,8 +109,8 @@ namespace ErrorController_Unit_Tests
                 Error errorTwo = new Error
                 {
                     ErrorCategoryID = 0,
-                    DetailedName = "postTest",
-                    Description = "This is a test of the Post method.",
+                    DetailedName = "errorTwo",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -121,8 +121,8 @@ namespace ErrorController_Unit_Tests
                 Error errorThree = new Error
                 {
                     ErrorCategoryID = 0,
-                    DetailedName = "postTest",
-                    Description = "This is a test of the Post method.",
+                    DetailedName = "errorThree",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -163,7 +163,7 @@ namespace ErrorController_Unit_Tests
                 {
                     ErrorCategoryID = 0,
                     DetailedName = "controlError",
-                    Description = "This is a test of the Post method.",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -175,7 +175,7 @@ namespace ErrorController_Unit_Tests
                 {
                     ErrorCategoryID = 0,
                     DetailedName = errName,
-                    Description = "This is a test of the Post method.",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -215,7 +215,7 @@ namespace ErrorController_Unit_Tests
                 {
                     ErrorCategoryID = 0,
                     DetailedName = errName,
-                    Description = "This is a test of the Post method.",
+                    Description = "This is a test.",
                     Link = "test",
                     CodeExample = "test",
                     IsUserExample = false,
@@ -234,7 +234,77 @@ namespace ErrorController_Unit_Tests
             }
         }
 
+        [Fact]
+        public async void GetErrorCanReturnBadRequestIfNoSearchNameProvided()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("GetErrorDb")
+                .Options;
 
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error testError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "testError",
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await context.Errors.AddAsync(testError);
+                await context.SaveChangesAsync();
+
+                // Act
+                var response = ec.GetError("");
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.BadRequestResult", response.Result.Result.ToString());
+            }
+        }
+
+        [Fact]
+        public async void GetErrorCanReturnNotFoundIfErrorWithSearchNameDoesNotExistInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("GetErrorDb")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error testError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "testError",
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await context.Errors.AddAsync(testError);
+                await context.SaveChangesAsync();
+
+                // Act
+                var response = ec.GetError("differentError");
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.NotFoundResult", response.Result.Result.ToString());
+            }
+        }
 
 
 
