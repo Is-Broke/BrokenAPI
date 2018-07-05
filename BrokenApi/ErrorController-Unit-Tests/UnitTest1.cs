@@ -13,7 +13,7 @@ namespace ErrorController_Unit_Tests
     public class UnitTest1
     {
         [Fact]
-        public async void DatabaseCanSave()
+        public async void DatabaseCanSaveErrors()
         {
             DbContextOptions<BrokenAPIContext> options =
                 new DbContextOptionsBuilder<BrokenAPIContext>()
@@ -51,7 +51,7 @@ namespace ErrorController_Unit_Tests
         {
             DbContextOptions<BrokenAPIContext> options =
                 new DbContextOptionsBuilder<BrokenAPIContext>()
-                .UseInMemoryDatabase("DbCanSave")
+                .UseInMemoryDatabase("PostErrorDb")
                 .Options;
 
             using (BrokenAPIContext context = new BrokenAPIContext(options))
@@ -78,6 +78,68 @@ namespace ErrorController_Unit_Tests
 
                 // Assert
                 Assert.Equal(1, results.Count());
+            }
+        }
+
+        [Fact]
+        public async void GetAllCanReturnAllErrorsInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("GetAllDb")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error errorOne = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "postTest",
+                    Description = "This is a test of the Post method.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                Error errorTwo = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "postTest",
+                    Description = "This is a test of the Post method.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                Error errorThree = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "postTest",
+                    Description = "This is a test of the Post method.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+                
+                await context.Errors.AddAsync(errorOne);
+                await context.Errors.AddAsync(errorTwo);
+                await context.Errors.AddAsync(errorThree);
+                await context.SaveChangesAsync();
+
+                // Act
+                var allErrors = ec.GetAll();
+
+                // Assert
+                Assert.Equal(3, allErrors.Result.Value.Count());
             }
         }
 
