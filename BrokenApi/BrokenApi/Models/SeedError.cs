@@ -26,19 +26,13 @@ namespace BrokenApi.Models
                         ErrorCategoryID = 0,
                         DetailedName = "Unexpected Output string",
                         Link = "https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/error-types",
-                        CodeExample = $"public static void Main(string[] args)" +
-                        $"{{" +
-                        $"Console.WriteLine(\"Hello World\");" +
-                        $"string firstName = \"John\";" +
-                        $"string lastName = \"Doe\";" +
-                        $"MakeFullName(firstName, lastName);" +
-                        $"}}" +
-                        $"public static void MakeFullName(string one, string two)" +
-                        $"{{" +
-                        $"Console.WriteLine(one + two);  // output is JohnDoe" +
-
-                        $"Console.WriteLine(one + \" \" + two); //Correct output of John Doe" +
-                        $"Console.WriteLine($\"{{one}} {{two}}\"); // same as above" +
+                        CodeExample = $"public static void Main(string[] args) {{\n" +
+                        $"\t string firstName = \"John\"; \n" +
+                        $"\t string lastName = \"Doe\"; \n" +
+                        $"\t MakeFullName(firstName, lastName); \n" +
+                        $"}} \n" +
+                        $"public static void MakeFullName(string one, string two){{ \n" +
+                        $"\t Console.WriteLine(one + two);  // output is JohnDoe when desired output should be John Doe\n" +
                         $"}}",
                         IsUserExample = false,
                         Votes = 0,
@@ -51,21 +45,11 @@ namespace BrokenApi.Models
                          ErrorCategoryID = 0,
                          DetailedName = "Unexpected Output Int",
                          Link = "https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/error-types",
-                         CodeExample = $"public static void Main(string[] args)" +
-                         $"{{" +
-                         $"Console.WriteLine(\"Hello World\");" +
-                         $"Console.WriteLine(FindAverage(20, 12));" +
-                         $"Console.WriteLine(FindAverageTrue(20, 12));" +
-                         $"}}" +
-                         $"public static int FindAverage(int x, int y)" +
-                         $"{{" +
-                         $"return x + y / 2;   // return 26 wrong output for average wanted 16" +
-                         $"}}" +
-
-                         $"public static int FindAverageTrue(int x, int y)" +
-                         $"{{" +
-                         $"return (x + y) / 2;  // returned the correct output for average" +
-                         $"}}" +
+                         CodeExample = $"public static void Main(string[] args){{ \n" +
+                         $"\t Console.WriteLine(FindAverage(20, 12)); \n" +
+                         $"}}\n" +
+                         $"public static int FindAverage(int x, int y){{ \n" +
+                         $"\t return x + y / 2;   // return 26 wrong output for average, wanted 16\n" +
                          $"}}",
                          IsUserExample = false,
                          Votes = 0,
@@ -187,6 +171,10 @@ namespace BrokenApi.Models
                         Description = "Constantly prints to console with loop that doesn't end.",
                         IsUserExample = false,
                         Link = "https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/error-types"
+                    },
+                    new Error
+                    {
+
                     },
                     new Error
                     {
