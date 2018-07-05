@@ -142,7 +142,28 @@ namespace ErrorController_Unit_Tests
                 Assert.Equal(3, allErrors.Result.Value.Count());
             }
         }
+        
+        [Fact]
+        public async void GetAllCanReturnNullIfNoErrorsExistInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("GetAllDb")
+                .Options;
 
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+                
+                // Act
+                var allErrors = await ec.GetAll();
+
+                // Assert
+                Assert.Null(allErrors.Result);
+            }
+        }
+        
         [Theory]
         [InlineData("firstTestError", 1)]
         [InlineData("secondTestError", 5)]
@@ -192,6 +213,27 @@ namespace ErrorController_Unit_Tests
 
                 // Assert
                 Assert.Equal(errName, topError.Result.Value.DetailedName);
+            }
+        }
+
+        [Fact]
+        public void GetTopCanReturnNullExceptionIfNoErrorsExistInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("GetTopdb")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                // Act
+                var response = ec.GetTop();
+
+                // Assert
+                Assert.Null(response.Exception);
             }
         }
 
