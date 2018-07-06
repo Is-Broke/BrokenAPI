@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BrokenApi.Migrations
 {
-    public partial class seedchanges : Migration
+    public partial class finalseeding : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
