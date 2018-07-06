@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BrokenApi.Data;
 using Microsoft.Extensions.Configuration;
+using NJsonSchema;
+using NSwag.AspNetCore;
+using System.Reflection;
 
 namespace BrokenApi
 {
@@ -41,6 +44,12 @@ namespace BrokenApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+            {
+                settings.GeneratorSettings.DefaultPropertyNameHandling =
+                    PropertyNameHandling.CamelCase;
+            });
 
             app.UseMvc();
 
