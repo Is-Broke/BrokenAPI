@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BrokenApi.Migrations
 {
     [DbContext(typeof(BrokenAPIContext))]
-    [Migration("20180705200714_descriptions-and-links")]
-    partial class descriptionsandlinks
+    [Migration("20180706010018_final-test-migration")]
+    partial class finaltestmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
