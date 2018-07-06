@@ -43,7 +43,7 @@ namespace BrokenApi.Models
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
-                        Description = "Error still computes but makes undesired output."
+                        Description = "Code executes but does not produce is not the expected output."
                     },
 
                      new Error
@@ -69,7 +69,7 @@ namespace BrokenApi.Models
                          IsUserExample = false,
                          Votes = 0,
                          Rating = 0,
-                         Description = "Error will compute but does not produce is not the expected output."
+                         Description = "Code executes but does not produce is not the expected output."
                      },
 
                     new Error
@@ -104,8 +104,8 @@ namespace BrokenApi.Models
                         CodeExample =
                         "public static void Main(String[] args)\n" +
                         "{\n" +
-                        "\tint quotient = 5 / 0;" +
-                        "\tConsole.WriteLine(quotient)" +
+                        "\tint quotient = 5 / 0;\n" +
+                        "\tConsole.WriteLine(quotient)\n" +
                         "}",
                         IsUserExample = false,
                         Votes = 1,
@@ -120,9 +120,12 @@ namespace BrokenApi.Models
                         ErrorCategoryID = 2,
                         DetailedName = "Invalid Assignment",
                         CodeExample =
-                        "if (x = y)\n" +
+                        "public static void Main(String[] args)\n" +
                         "{\n" +
-                        "\tConsole.WriteLine(x)\n" +
+                        "\tif (x = y)\n" +
+                        "\t{\n" +
+                        "\t\tConsole.WriteLine(x)\n" +
+                        "\t}\n" +
                         "}",
                         IsUserExample = false,
                         Votes = 0,
@@ -200,60 +203,73 @@ namespace BrokenApi.Models
                     new Error
                     {
                         ErrorCategoryID = 1,
-                        DetailedName = "System.IndexOutOfRangeException",
+                        DetailedName = "IndexOutOfRange Exception",
                         Link = "https://docs.microsoft.com/en-us/dotnet/api/system.indexoutofrangeexception?view=netframework-4.7.1",
                         CodeExample =
-                        "int[] myarray = new int[10];\n" +
-                        " myarray[5] = 5; \n" +
-                        " myarray[10] = 10;\n" +
-                        "Console.WriteLine(myarray);",
+                        "public static void Main(String[] args)\n" +
+                        "{\n" +
+                        "\tint[] myarray = new int[5];\n" +
+                        "\tmyarray[10] = 10;\n" +
+                        "}",
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
-                        Description = "Index was outside the bounds of the array."
+                        Description = "Error caused when trying to access an index outside of the range " +
+                                      "specified by the size of an array."
                     },
 
                     new Error
                     {
                         ErrorCategoryID = 0,
-                        DetailedName = "Loop doesn't Terminate",
-                        Link = "https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/language-features/error-types",
+                        DetailedName = "Infinite Loop",
                         CodeExample =
-                        "string x = Console.ReadLine(); \n" +
-                        "while (x != null)" +
+                        "public static void Main(String[] args)\n" +
                         "{\n" +
-                        "Console.WriteLine(x);\n" +
+                        "\tint x = 1; \n" +
+                        "\twhile (x == 1)\n" +
+                        "\t{\n" +
+                        "\t\tConsole.WriteLine(x);\n" +
+                        "\t}\n" +
                         "}",
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
-                        Description = "Constantly prints to console with loop that doesn't end."
+                        Description = "Inifite loops are caused when a condition is never mutated, in order " +
+                                      "to return \"false\" and exit the loop. This will cause the loop to run " +
+                                      "continuously, typically causes the system to freeze as a result."
                     },
 
                     new Error
                     {
                         ErrorCategoryID = 1,
-                        DetailedName = "System.IO.FileNotFoundException",
+                        DetailedName = "FileNotFound Exception",
                         Link = "https://docs.microsoft.com/en-us/dotnet/api/system.io.filenotfoundexception?view=netframework-4.7.1",
                         CodeExample =
-                        "using (StreamReader sr = new StreamReader(path: \"../somthing.txt\"));",
+                        "public static void Main(String[] args)\n" +
+                        "{\n" +
+                        "\tusing (StreamReader sr = new StreamReader(path: \"../example.txt\"));\n" +
+                        "}",
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
-                        Description = "if file is not on in path throws file not found",
+                        Description = "This error is caused when attempting to access a file that " +
+                                      "does not exist at the specified path.",
                     },
 
                     new Error
                     {
                         ErrorCategoryID = 2,
-                        DetailedName = "Missing semicolon",
-                        Link = "",
+                        DetailedName = "Missing Semicolon",
                         CodeExample =
-                        "int a = 5   // semicolon is missing, ';' expected",
+                        "public static void Main(String[] args)\n" +
+                        "{\n" +
+                        "\t int a = 5   // semicolon is missing, ';' expected\n" +
+                        "}",
                         IsUserExample = false,
                         Votes = 0,
                         Rating = 0,
-                        Description = "Forgetting to put semicolon after statement",
+                        Description = "Common syntax error which occurs when a semicolon is not added " +
+                                      "at the end of a statement.",
                     });
 
                 await context.SaveChangesAsync();
