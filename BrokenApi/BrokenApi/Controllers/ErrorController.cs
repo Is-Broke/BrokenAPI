@@ -14,49 +14,53 @@ namespace BrokenApi.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
+        /// <summary>
+        /// Sets up context field for connecting to database
+        /// </summary>
         private BrokenAPIContext _context;
 
+        /// <summary>
+        /// Constructor method for the Controller
+        /// </summary>
+        /// <param name="context">connection to database</param>
         public ErrorController(BrokenAPIContext context)
         {
             _context = context;
         }
-
-        // GET api/Error/Top
-        // Returns most upvoted Error
+        
+        /// <summary>
+        /// Asynchronous method which returns the Error with the most upvotes from the database.
+        /// Route: api/Error/
+        /// </summary>
+        /// <returns>Error object</returns>
         [HttpGet]
         [Route("/api/error")]
         public async Task<ActionResult<Error>> GetTop()
         {
-            if (_context.Errors == null)
-            {
-                return NotFound();
-            }
-
             var topError = _context.Errors.OrderByDescending(err => err.Votes)
                                           .FirstOrDefaultAsync();
 
             return await topError;
         }
         
-        // GET api/Error/All
-        // Returns all Errors
+        /// <summary>
+        /// Asynchronous method which returns all Errors from the database.
+        /// Route: api/Error/All
+        /// </summary>
+        /// <returns>List of Error objects</returns>
         [HttpGet]
         [Route("/api/error/all")]
-        public ActionResult<List<Error>> GetAll()
+        public async Task<ActionResult<List<Error>>> GetAll()
         {
-            try
-            {
-                return _context.Errors.ToList();
-            }
-            catch
-            {
-                return NotFound();
-            }
+            return await _context.Errors.ToListAsync();
         }
-        
-        // GET api/Error/Search
-        // GET api/Error/Search/{error name}
-        // Returns searched for Error
+
+        /// <summary>
+        /// Asynchronous method which returns the Error which has the same DetailedName as the searched name.
+        /// Route: api/Error/Search/{search name}
+        /// </summary>
+        /// <param name="searchName">Error name to search the database for</param>
+        /// <returns>Error object</returns>
         [HttpGet]
         [Route("/api/error/search/{searchName?}")]
         public async Task<ActionResult<Error>> GetError(string searchName)
@@ -83,7 +87,12 @@ namespace BrokenApi.Controllers
             }
         }
 
-        // POST api/Error/Create
+        /// <summary>
+        /// Asynchronous method which adds an Error the the database.
+        /// Route: api/Error/Create
+        /// </summary>
+        /// <param name="newError">Error to add to the database</param>
+        /// <returns>CreatedResult object</returns>
         [HttpPost]
         [Route("/api/error/create")]
         public async Task<IActionResult> PostError(Error newError)
@@ -95,7 +104,7 @@ namespace BrokenApi.Controllers
 
             var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.DetailedName == newError.DetailedName);
 
-            if (foundError != null || newError.DetailedName == null)
+            if (foundError != null)
             {
                 return Conflict();
             }
@@ -109,12 +118,68 @@ namespace BrokenApi.Controllers
             }
             catch
             {
-                return Conflict();
+                return BadRequest();
             }
         }
+        
+        /// <summary>
+        /// Asynchronous method which increments the Vote property on an Error object.
+        /// Route: api/Error/{error id}
+        /// </summary>
+        /// <param name="id">ID of the Error to increment Vote for</param>
+        /// <returns>OkResult object</returns>
+        [HttpPut]
+        [Route("/api/error/{id}")]
+        public async Task<IActionResult> AddVote(int id)
+        {
+            var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.ID == id);
 
+            if (foundError == null)
+            {
+                return NotFound();
+            }
 
+            try
+            {
+                foundError.Votes++;
+                await _context.SaveChangesAsync();
 
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        
+        /// <summary>
+        /// Asynchronous method which removes an Error from the database.
+        /// Route: api/Error/{error id}
+        /// </summary>
+        /// <param name="id">ID of the Error to remove from the database</param>
+        /// <returns>OkResult object</returns>
+        [HttpDelete]
+        [Route("/api/error/{id}")]
+        public async Task<IActionResult> DeleteError(int id)
+        {
+            var foundError = await _context.Errors.FirstOrDefaultAsync(err => err.ID == id);
 
+            if (foundError == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                _context.Errors.Remove(foundError);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
