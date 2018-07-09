@@ -45,42 +45,7 @@ namespace ErrorController_Unit_Tests
                 Assert.Equal(1, results.Count());
             }
         }
-
-        [Fact]
-        public async void PostErrorCanCreateNewErrors()
-        {
-            DbContextOptions<BrokenAPIContext> options =
-                new DbContextOptionsBuilder<BrokenAPIContext>()
-                .UseInMemoryDatabase("PostErrorDb")
-                .Options;
-
-            using (BrokenAPIContext context = new BrokenAPIContext(options))
-            {
-                // Arrange
-                ErrorController ec = new ErrorController(context);
-
-                Error newError = new Error
-                {
-                    ErrorCategoryID = 0,
-                    DetailedName = "postTest",
-                    Description = "This is a test.",
-                    Link = "test",
-                    CodeExample = "test",
-                    IsUserExample = false,
-                    Votes = 0,
-                    Rating = 0
-                };
-
-                // Act
-                await ec.PostError(newError);
-
-                var results = context.Errors.Where(e => e.DetailedName == "postTest");
-
-                // Assert
-                Assert.Equal(1, results.Count());
-            }
-        }
-
+        
         [Fact]
         public async void GetAllCanReturnAllErrorsInDatabase()
         {
@@ -348,7 +313,305 @@ namespace ErrorController_Unit_Tests
             }
         }
 
+        [Theory]
+        [InlineData("firstPostTest")]
+        [InlineData("secondPostTest")]
+        [InlineData("thirdPostTest")]
+        public async void PostErrorCanCreateNewErrors(string errorName)
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase(errorName)
+                .Options;
 
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
 
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = errorName,
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                // Act
+                await ec.PostError(newError);
+
+                var results = context.Errors.Where(e => e.DetailedName == errorName);
+
+                // Assert
+                Assert.Equal(1, results.Count());
+            }
+        }
+
+        [Fact]
+        public async void PostErrorCanReturnConflictIfDetailedNameProvidedForErrorAlreadyExistsInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("postErrorSameName")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error controlError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "controlError",
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                Error testError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "controlError",
+                    Description = "This is another test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await ec.PostError(controlError);
+
+                // Act
+                var response = await ec.PostError(testError);
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.ConflictResult", response.ToString());
+            }
+        }
+
+        /*
+        [Fact]
+        public async void PostErrorCanReturnArgumentNullExceptionIfNoDetailedNameIsProvidedForNewError()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("postErrorNullName")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                // Act
+                var response = await ec.PostError(newError);
+
+                // Assert
+                Assert.Null(response);
+            }
+        }
+        */
+
+        /*
+        
+        [Theory]
+        [InlineData("firstAddVoteTest", 0)]
+        [InlineData("secondAddVoteTest", 5)]
+        [InlineData("thirdAddVoteTest", 10)]
+        public async void AddVoteCanIncrementVoteCountForSpecifiedErrorAndReturnOk(string errorName, int startVoteCount)
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase(errorName)
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = errorName,
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = startVoteCount,
+                    Rating = 0
+                };
+
+                await ec.PostError(newError);
+
+                int errorID = 0;
+                switch (errorName)
+                {
+                    case "firstAddVoteTest":
+                        errorID = 3;
+                        break;
+                    case "secondAddVoteTest":
+                        errorID = 2;
+                        break;
+                    case "thirdAddVoteTest":
+                        errorID = 1;
+                        break;
+                }
+
+                // Act
+                var response = await ec.AddVote(errorID);
+                var error = ec.GetTop();
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.OkResult", response.ToString());
+                Assert.Equal(startVoteCount + 1, error.Result.Value.Votes);
+            }
+        }
+
+        */
+
+        [Fact]
+        public async void AddVoteCanReturnNotFoundIfErrorNotFoundForGivenIDInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("addVoteIncorrectID")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "Test",
+                    Description = "This is a testError.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await ec.PostError(newError);
+
+                // Act
+                var response = await ec.AddVote(100);
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.NotFoundResult", response.ToString());
+            }
+        }
+
+        [Theory]
+        [InlineData("firstDeleteErrorTest")]
+        [InlineData("secondDeleteErrorTest")]
+        [InlineData("thirdDeleteErrorTest")]
+        public async void DeleteErrorCanRemoveAnErrorFromTheDatabaseAndReturnOk(string errorName)
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase(errorName)
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = errorName,
+                    Description = "This is a test.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await ec.PostError(newError);
+
+                int errorID = 0;
+                switch (errorName)
+                {
+                    case "firstDeleteErrorTest":
+                        errorID = 1;
+                        break;
+                    case "secondDeleteErrorTest":
+                        errorID = 2;
+                        break;
+                    case "thirdDeleteErrorTest":
+                        errorID = 3;
+                        break;
+                }
+
+                // Act
+                var response = await ec.DeleteError(errorID);
+                var results = context.Errors.Where(e => e.DetailedName == errorName);
+                
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.OkResult", response.ToString());
+                Assert.Equal(0, results.Count());
+            }
+        }
+
+        [Fact]
+        public async void DeleteErrorCanReturnNotFoundIfErrorNotFoundForGivenIDInDatabase()
+        {
+            DbContextOptions<BrokenAPIContext> options =
+                new DbContextOptionsBuilder<BrokenAPIContext>()
+                .UseInMemoryDatabase("deleteErrorIncorrectID")
+                .Options;
+
+            using (BrokenAPIContext context = new BrokenAPIContext(options))
+            {
+                // Arrange
+                ErrorController ec = new ErrorController(context);
+
+                Error newError = new Error
+                {
+                    ErrorCategoryID = 0,
+                    DetailedName = "Test",
+                    Description = "This is a testError.",
+                    Link = "test",
+                    CodeExample = "test",
+                    IsUserExample = false,
+                    Votes = 0,
+                    Rating = 0
+                };
+
+                await ec.PostError(newError);
+
+                // Act
+                var response = await ec.DeleteError(100);
+
+                // Assert
+                Assert.Equal("Microsoft.AspNetCore.Mvc.NotFoundResult", response.ToString());
+            }
+        }
     }
 }
