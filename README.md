@@ -16,13 +16,13 @@
 
 ## Example
 - For examples you can search for top Listed error, all errors, by category, by category with all errors.
-![Top Error Screen Shot](BrokenApi/assets/topError.png)
+![Top Error Screen Shot](BrokenApi/BrokenApi/assets/topError.png)
 - All ERROR example.
 ![Top Error Screen Shot](BrokenApi/BrokenApi/assets/allErrorS.png)
 - All Category example.
-![Top Error Screen Shot](/assets/categoryS.png)
+![Top Error Screen Shot](BrokenApi/BrokenApi/assets/categoryS.png)
 - Category with all the errors in category example.
-![Top Error Screen Shot](../assets/CateWErrors.png)
+![Top Error Screen Shot](BrokenApi/BrokenApi/assets/CateWErrors.png)
 
 ## Architecture
 API for the Broken Code site. Broken Code and BrokenAPI are written in C# and utilize the ASP.NET Core framework.
