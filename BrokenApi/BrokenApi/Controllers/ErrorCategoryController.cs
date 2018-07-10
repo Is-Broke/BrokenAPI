@@ -127,7 +127,7 @@ namespace BrokenApi.Controllers
         /// </summary>
         /// <returns>and array of Types w/ description and error examples</returns>
         [HttpGet("listAll")]//api/ErrorCategory/listAll
-        public async Task<ArrayList> GetAllTypesAndError()
+        public async Task<ArrayList> GetAllTypesAndError()  
         {
             ArrayList list = new ArrayList();
             try
