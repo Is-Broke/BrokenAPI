@@ -16,9 +16,9 @@
 
 ## Example
 - For examples you can search for top Listed error, all errors, by category, by category with all errors.
-![Top Error Screen Shot](assets/topError.png)
+![Top Error Screen Shot](BrokenApi/assets/topError.png)
 - All ERROR example.
-![Top Error Screen Shot](../../assets/allErrorS.png)
+![Top Error Screen Shot](BrokenApi/BrokenApi/assets/allErrorS.png)
 - All Category example.
 ![Top Error Screen Shot](/assets/categoryS.png)
 - Category with all the errors in category example.
