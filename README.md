@@ -20,7 +20,7 @@
 - All ERROR example.
 ![Top Error Screen Shot](../../assets/allErrorS.png)
 - All Category example.
-![Top Error Screen Shot](../assets/categoryS.png)
+![Top Error Screen Shot](/assets/categoryS.png)
 - Category with all the errors in category example.
 ![Top Error Screen Shot](../assets/CateWErrors.png)
 
